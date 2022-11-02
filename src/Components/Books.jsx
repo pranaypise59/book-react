@@ -13,6 +13,8 @@ const Books = () => {
 
         try {
             await BookDataService.updateBook(id, UpdatedBook);
+            getBooks()
+            getBackups()
         } catch (err) {
             setMessage({ error: true, msg: err.message });
         }
@@ -33,6 +35,9 @@ const Books = () => {
         try {
             await BookDataService.addBackup(newBackup)
             setMessage({ error: false, msg: "Book Copied Successfully" })
+            setTimeout(() => {
+                setMessage("")
+            }, 3000);
         } catch (err) {
             setMessage({ error: true, msg: err.message })
         }
@@ -61,7 +66,7 @@ const Books = () => {
     }, [])
     return (
         <div className='container'>
-            {message?.msg && <div className="alert alert-success alert-dismissible fade show" role="alert">
+            {message?.msg && <div className="alert alert-success alert-dismissible fade show" role="alert" style={{position:"fixed",bottom:"10px",left:"20px"}}>
                 <strong>{message?.msg}</strong>
                 <button
                     type="button"
